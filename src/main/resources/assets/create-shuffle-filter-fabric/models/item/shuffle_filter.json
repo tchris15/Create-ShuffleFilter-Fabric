@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:item/generated",
+  "parent": "item/generated",
   "textures": {
-    "layer0": "createshufflefilter:item/shuffle_filter"
+    "layer0": "create-shuffle-filter-fabric:item/shuffle_filter"
   }
 }
