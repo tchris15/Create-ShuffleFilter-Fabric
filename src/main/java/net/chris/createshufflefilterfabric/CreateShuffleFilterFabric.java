@@ -1,5 +1,6 @@
 package net.chris.createshufflefilterfabric;
 
+import com.simibubi.create.content.logistics.filter.FilterItem;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -14,10 +15,10 @@ public class CreateShuffleFilterFabric implements ModInitializer {
 	public static final String MOD_ID = "create-shuffle-filter-fabric";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-    public static final Item SHUFFLE_FILTER = Registry.register(
+    public static final FilterItem SHUFFLE_FILTER = Registry.register(
             Registries.ITEM,
             new Identifier(MOD_ID, "shuffle_filter"),
-            new Item(new FabricItemSettings())
+            FilterItem.regular(new FilterItem.Properties())
     );
 
 	@Override
