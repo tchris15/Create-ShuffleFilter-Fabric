@@ -1,7 +1,7 @@
-package net.chris.createshufflefilter.mixin;
+package net.chris.create-shuffle-filter.mixin;
 
 import com.simibubi.create.content.logistics.filter.FilterItem;
-import net.chris.createshufflefilter.CreateShuffleFilterFabric;
+import net.chris.create-shuffle-filter.CreateShuffleFilter;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -16,7 +16,7 @@ public class MixinFilterItem {
     @Inject(method = "getFilterItems", at = @At("HEAD"), cancellable = true, remap = false)
     private static void allowShuffleFilter(ItemStack stack, CallbackInfoReturnable<ItemStackHandler> cir) {
         // Prüfen ob es unser Shuffle Filter ist
-        if (stack.getItem() == CreateShuffleFilterFabric.SHUFFLE_FILTER) {
+        if (stack.getItem() == CreateShuffleFilter.SHUFFLE_FILTER) {
             ItemStackHandler newInv = new ItemStackHandler(18);
 
             // NBT laden falls vorhanden

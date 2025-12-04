@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 1,
-	"id": "createshufflefilter",
+	"id": "create-shuffle-filter",
 	"version": "${version}",
 	"name": "Create: Shuffle Filter Fabric",
 	"description": "This is an example description! Tell everyone what your mod is about!",
@@ -9,15 +9,15 @@
 	],
 	"contact": {},
 	"license": "MIT",
-	"icon": "assets/create-shuffle-filter-fabric/icon.png",
+	"icon": "assets/create-shuffle-filter/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"net.chris.createshufflefilterfabric.CreateShuffleFilterFabric"
+			"net.chris.create-shuffle-filter.CreateShuffleFilter"
 		]
 	},
 	"mixins": [
-		"create-shuffle-filter-fabric.mixins.json"
+		"creates-huffle-filter.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.18.1",

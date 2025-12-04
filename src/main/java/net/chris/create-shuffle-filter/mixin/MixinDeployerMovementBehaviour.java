@@ -1,6 +1,6 @@
-package net.chris.createshufflefilter.mixin;
+package net.chris.create-shuffle-filter.mixin;
 
-import net.chris.createshufflefilter.CreateShuffleFilterFabric;
+import net.chris.create-shuffle-filter.CreateShuffleFilter;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
 import com.simibubi.create.content.kinetics.deployer.DeployerFakePlayer;
 import com.simibubi.create.content.kinetics.deployer.DeployerMovementBehaviour;
@@ -42,7 +42,7 @@ public class MixinDeployerMovementBehaviour {
 
         // Prüfen ob es ein Shuffle Filter ist
         boolean isShuffleFilter = filter != null && !filter.item().isEmpty() &&
-                filter.item().getItem() == CreateShuffleFilterFabric.SHUFFLE_FILTER;
+                filter.item().getItem() == CreateShuffleFilter.SHUFFLE_FILTER;
 
         if (!isShuffleFilter) return; // Normales Verhalten für andere Filter
 
