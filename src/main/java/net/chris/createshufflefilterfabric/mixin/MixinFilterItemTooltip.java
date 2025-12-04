@@ -1,6 +1,6 @@
-package com.deinname.shufflefilter.mixin;
+package net.chris.createshufflefilterfabric.mixin;
 
-import com.deinname.shufflefilter.ShuffleFilterMod;
+import net.chris.createshufflefilterfabric.CreateShuffleFilterFabric;
 import com.simibubi.create.AllKeys;
 import com.simibubi.create.content.logistics.filter.FilterItem;
 import net.minecraft.client.item.TooltipContext;
@@ -21,7 +21,7 @@ public class MixinFilterItemTooltip {
     private void addShuffleFilterTooltip(ItemStack stack, net.minecraft.world.World world,
                                          List<Text> tooltip, TooltipContext context, CallbackInfo ci) {
         // Prüfen ob es unser Shuffle Filter ist
-        if (stack.getItem() == ShuffleFilterMod.SHUFFLE_FILTER) {
+        if (stack.getItem() == CreateShuffleFilterFabric.SHUFFLE_FILTER) {
             tooltip.add(Text.literal("Randomizes item selection from filtered matches for deployers on contraptions")
                     .formatted(Formatting.GRAY));
 
