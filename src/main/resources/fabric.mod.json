@@ -5,24 +5,15 @@
 	"name": "Create: Shuffle Filter Fabric",
 	"description": "This is an example description! Tell everyone what your mod is about!",
 	"authors": [
-		"Me!"
+		"tchris15"
 	],
-	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
-	},
+	"contact": {},
 	"license": "MIT",
 	"icon": "assets/create-shuffle-filter-fabric/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
 			"net.chris.createshufflefilterfabric.CreateShuffleFilterFabric"
-		],
-        "client": [
-            "net.chris.createshufflefilterfabric.CreateShuffleFilterFabricClient"
-        ],
-		"fabric-datagen": [
-			"net.chris.createshufflefilterfabric.CreateShuffleFilterFabricDataGenerator"
 		]
 	},
 	"mixins": [
