@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 1,
-	"id": "create-shuffle-filter-fabric",
+	"id": "createshufflefilter",
 	"version": "${version}",
 	"name": "Create: Shuffle Filter Fabric",
 	"description": "This is an example description! Tell everyone what your mod is about!",

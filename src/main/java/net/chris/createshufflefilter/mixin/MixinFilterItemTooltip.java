@@ -1,6 +1,6 @@
-package net.chris.createshufflefilterfabric.mixin;
+package net.chris.createshufflefilter.mixin;
 
-import net.chris.createshufflefilterfabric.CreateShuffleFilterFabric;
+import net.chris.createshufflefilter.CreateShuffleFilterFabric;
 import com.simibubi.create.AllKeys;
 import com.simibubi.create.content.logistics.filter.FilterItem;
 import net.minecraft.client.item.TooltipContext;

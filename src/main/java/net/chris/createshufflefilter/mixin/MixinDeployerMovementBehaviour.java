@@ -1,15 +1,14 @@
-package net.chris.createshufflefilterfabric.mixin;
+package net.chris.createshufflefilter.mixin;
 
-import com.simibubi.create.content.contraptions.Contraption;
-import net.chris.createshufflefilterfabric.CreateShuffleFilterFabric;
+import net.chris.createshufflefilter.CreateShuffleFilterFabric;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
 import com.simibubi.create.content.kinetics.deployer.DeployerFakePlayer;
 import com.simibubi.create.content.kinetics.deployer.DeployerMovementBehaviour;
 import com.simibubi.create.content.logistics.filter.FilterItemStack;
-import com.simibubi.create.foundation.item.ItemHelper;
-import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.random.Random;
@@ -41,7 +40,7 @@ public class MixinDeployerMovementBehaviour {
 
         FilterItemStack filter = context.getFilterFromBE();
 
-        // Prüfen, ob es ein Shuffle Filter ist
+        // Prüfen ob es ein Shuffle Filter ist
         boolean isShuffleFilter = filter != null && !filter.item().isEmpty() &&
                 filter.item().getItem() == CreateShuffleFilterFabric.SHUFFLE_FILTER;
 
@@ -50,41 +49,29 @@ public class MixinDeployerMovementBehaviour {
         DeployerFakePlayer player = getPlayer(context);
         if (player == null || !player.getMainHandStack().isEmpty()) return;
 
-        //ItemStackHandler inv = context.contraption.getSharedInventory();
-        Contraption.ContraptionInvWrapper inv = context.contraption.getSharedInventory();
-        if (inv == null) return;
-        //meine version, da ja itemstackhandler nicht geht
-        List<StorageView<ItemVariant>> slots = new ArrayList<>();
-        inv.iterator().forEachRemaining(slots::add);
+        Storage<ItemVariant> storage = context.contraption.getSharedInventory();
+        if (storage == null) return;
 
         // Sammle alle einzigartigen Items, die durch den Filter passen
-        List<ItemStack> candidates = new ArrayList<>();
+        List<ItemVariant> candidates = new ArrayList<>();
+        Map<ItemVariant, Long> candidateAmounts = new HashMap<>();
 
-
-        //meine version, da ja itemstackhandler nicht geht
-        for (StorageView<ItemVariant> view : inv.nonEmptyViews()) {
+        // Über alle StorageViews iterieren
+        for (StorageView<ItemVariant> view : storage.nonEmptyViews()) {
             ItemVariant variant = view.getResource();
-            long amount = view.getAmount();
+            ItemStack stack = variant.toStack((int) view.getAmount());
 
-            // Prüfen, ob die View leer ist (optional, nonEmptyViews() filtert das schon)
-            if (amount == 0) continue;
+            if (stack.isEmpty() || !filter.test(world, stack)) continue;
 
-            ItemStack s = variant.toStack((int) amount); // oder wie du ItemVariant → ItemStack machst
-            if (!filter.test(world, s)) continue;
-
-            // Prüfen, ob wir dieses Item schon haben
-            boolean found = false;
-            for (ItemStack c : candidates) {
-                if (ItemStack.areEqual(c, s)) {
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                candidates.add(s.copy());
+            // Prüfen ob wir diesen Variant schon haben
+            if (!candidates.contains(variant)) {
+                candidates.add(variant);
+                candidateAmounts.put(variant, view.getAmount());
+            } else {
+                // Wenn schon vorhanden, Amount addieren (für Weighted Mode)
+                candidateAmounts.put(variant, candidateAmounts.get(variant) + view.getAmount());
             }
         }
-
 
         if (candidates.isEmpty()) return; // Keine passenden Items
 
@@ -104,33 +91,21 @@ public class MixinDeployerMovementBehaviour {
         }
 
         // Item auswählen
-        ItemStack chosen;
+        ItemVariant chosen;
         if (candidates.size() == 1) {
             chosen = candidates.get(0);
         } else {
             Random random = world.getRandom();
 
             if (useWeightedMode) {
-                // Weighted Mode: Stacks zählen
-                Map<ItemStack, Integer> stackCounts = new HashMap<>();
+                // Weighted Mode: Basierend auf Menge gewichten
+                List<ItemVariant> weightedList = new ArrayList<>();
 
-                for (ItemStack candidate : candidates) {
-                    int count = 0;
-
-                    for (StorageView<ItemVariant> view : inv.nonEmptyViews()) {
-                        ItemStack s = view.getResource().toStack((int)view.getAmount());
-                        if (!s.isEmpty() && ItemStack.areEqual(s, candidate)) {
-                            count++;
-                        }
-                    }
-                    stackCounts.put(candidate, count);
-                }
-
-                // Weighted Liste erstellen
-                List<ItemStack> weightedList = new ArrayList<>();
-                for (Map.Entry<ItemStack, Integer> entry : stackCounts.entrySet()) {
-                    for (int i = 0; i < entry.getValue(); i++) {
-                        weightedList.add(entry.getKey());
+                for (ItemVariant candidate : candidates) {
+                    long amount = candidateAmounts.get(candidate);
+                    // Jede Einheit erhöht die Chance
+                    for (int i = 0; i < amount; i++) {
+                        weightedList.add(candidate);
                     }
                 }
 
@@ -144,12 +119,18 @@ public class MixinDeployerMovementBehaviour {
             }
         }
 
-        // Item aus Inventar nehmen
-        ItemStack held = ItemHelper.extract(inv, stack -> ItemStack.areEqual(stack, chosen),
-                1, false);
-        player.setStackInHand(Hand.MAIN_HAND, held);
+        // Item aus Storage extrahieren (mit Transaction)
+        try (Transaction transaction = Transaction.openOuter()) {
+            long extracted = storage.extract(chosen, 1, transaction);
 
-        // Original-Methode abbrechen
-        ci.cancel();
+            if (extracted > 0) {
+                ItemStack extractedStack = chosen.toStack(1);
+                player.setStackInHand(Hand.MAIN_HAND, extractedStack);
+                transaction.commit();
+
+                // Original-Methode abbrechen
+                ci.cancel();
+            }
+        }
     }
 }

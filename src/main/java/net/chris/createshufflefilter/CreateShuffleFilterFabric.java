@@ -1,11 +1,9 @@
-package net.chris.createshufflefilterfabric;
+package net.chris.createshufflefilter;
 
 import com.simibubi.create.AllCreativeModeTabs;
-import com.simibubi.create.AllItems;
 import com.simibubi.create.content.logistics.filter.FilterItem;
 import net.fabricmc.api.ModInitializer;
 
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -15,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class CreateShuffleFilterFabric implements ModInitializer {
-	public static final String MOD_ID = "create-shuffle-filter-fabric";
+	public static final String MOD_ID = "createshufflefilter";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     public static final FilterItem SHUFFLE_FILTER = Registry.register(

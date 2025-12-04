@@ -1,4 +1,4 @@
-package net.chris.createshufflefilterfabric.mixin;
+package net.chris.createshufflefilter.mixin;
 
 import com.simibubi.create.content.logistics.filter.FilterMenu;
 import com.simibubi.create.content.logistics.filter.FilterScreen;
