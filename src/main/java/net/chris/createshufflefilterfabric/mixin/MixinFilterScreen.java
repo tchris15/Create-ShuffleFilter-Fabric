@@ -1,4 +1,4 @@
-package com.deinname.shufflefilter.mixin;
+package net.chris.createshufflefilterfabric.mixin;
 
 import com.simibubi.create.content.logistics.filter.FilterMenu;
 import com.simibubi.create.content.logistics.filter.FilterScreen;
@@ -33,11 +33,11 @@ public class MixinFilterScreen {
 
             if (isShuffleFilter) {
                 // Tooltips für Shuffle Mode überschreiben
-                respectDataN = Text.literal("Equal Mode");
-                ignoreDataN = Text.literal("Weighted Mode");
+                respectDataN = Text.literal("Weighted Mode");
+                ignoreDataN = Text.literal("Equal Mode");
 
-                respectDataDESC = Text.literal("Deployer in contraptions: Randomness ignores item qty. All other: NBT Data is considered");
-                ignoreDataDESC = Text.literal("Deployer in contraptions: Items chosen by stack count. All other: NBT Data is ignored");
+                respectDataDESC = Text.literal("Deployer in contraptions: Items chosen by stack count. All other: NBT Data is considered");
+                ignoreDataDESC = Text.literal("Deployer in contraptions: Randomness ignores item quantity. All other: NBT Data is ignored");
             }
         } catch (Exception e) {
             // Fehler ignorieren - Standard-Verhalten

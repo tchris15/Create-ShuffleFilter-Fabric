@@ -6,6 +6,9 @@
 		"MixinFilterItem",
         "MixinFilterItemStack"
 	],
+    "client": [
+      "MixinFilterScreen"
+    ],
 	"injectors": {
 		"defaultRequire": 1
 	},
