@@ -8,34 +8,27 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(FilterItemStack.class)
-public abstract class MixinFilterItemStack {
+@Mixin(value = FilterItemStack.class, remap = false)
+public class MixinFilterItemStack {
 
     @Inject(
             method = "of(Lnet/minecraft/item/ItemStack;)Lcom/simibubi/create/content/logistics/filter/FilterItemStack;",
             at = @At("HEAD"),
-            cancellable = true
+            cancellable = true,
+            remap = false
     )
-    private static void shuffleFilterSupport(ItemStack stack, CallbackInfoReturnable<FilterItemStack> cir) {
-
-        // Prüfen, ob dies unser Shuffle-Filter ist
-        if (stack.getItem() == CreateShuffleFilterFabric.SHUFFLE_FILTER) {
-
-            // Entferne Enchantments / Attribute wie Create es macht
-            stack.removeSubNbt("Enchantments");
-            stack.removeSubNbt("AttributeModifiers");
-
+    private static void onOf(ItemStack filter, CallbackInfoReturnable<FilterItemStack> cir) {
+        // Check if this is our shuffle filter
+        if (filter.getItem() == CreateShuffleFilterFabric.SHUFFLE_FILTER) {
             try {
-                // Zugriff auf die innere Klasse ListFilterItemStack
-                var innerClass = FilterItemStack.ListFilterItemStack.class;
-                var constructor = innerClass.getDeclaredConstructor(ItemStack.class);
+                // Create a ListFilterItemStack for our shuffle filter
+                Class<?> listFilterClass = FilterItemStack.ListFilterItemStack.class;
+                java.lang.reflect.Constructor<?> constructor = listFilterClass.getDeclaredConstructor(ItemStack.class);
                 constructor.setAccessible(true);
-
-                FilterItemStack filter = (FilterItemStack) constructor.newInstance(stack);
-
-                cir.setReturnValue(filter);
+                FilterItemStack listFilter = (FilterItemStack) constructor.newInstance(filter);
+                cir.setReturnValue(listFilter);
             } catch (Exception e) {
-                CreateShuffleFilterFabric.LOGGER.error("Could not instantiate ListFilterItemStack for Shuffle Filter", e);
+                CreateShuffleFilterFabric.LOGGER.error("Failed to create ListFilterItemStack for shuffle filter", e);
             }
         }
     }

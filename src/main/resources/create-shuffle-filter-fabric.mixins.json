@@ -3,7 +3,8 @@
 	"package": "net.chris.createshufflefilterfabric.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-		"ExampleMixin"
+		"MixinFilterItem",
+        "MixinFilterItemStack"
 	],
 	"injectors": {
 		"defaultRequire": 1
