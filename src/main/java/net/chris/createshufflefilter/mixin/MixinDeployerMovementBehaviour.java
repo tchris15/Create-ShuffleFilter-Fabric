@@ -80,6 +80,7 @@ public class MixinDeployerMovementBehaviour {
                 }
             }
         } catch (Exception e) {
+            CreateShuffleFilter.LOGGER.error("Failed to read RespectNBT from ShuffleFilter", e);
         }
 
         ItemVariant chosen;

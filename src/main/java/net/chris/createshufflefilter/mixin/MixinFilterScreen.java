@@ -1,5 +1,6 @@
 package net.chris.createshufflefilter.mixin;
 
+import net.chris.createshufflefilter.CreateShuffleFilter;
 import com.simibubi.create.content.logistics.filter.FilterMenu;
 import com.simibubi.create.content.logistics.filter.FilterScreen;
 import net.minecraft.entity.player.PlayerInventory;
@@ -38,6 +39,7 @@ public class MixinFilterScreen {
                 ignoreDataDESC = Text.literal("Deployer in contraptions: Randomness ignores item quantity. All other: NBT Data is ignored");
             }
         } catch (Exception e) {
+            CreateShuffleFilter.LOGGER.error("Error adjusting FilterScreen title for ShuffleFilter", e);
         }
     }
 }

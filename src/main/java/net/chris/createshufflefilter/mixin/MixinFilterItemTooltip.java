@@ -34,6 +34,7 @@ public class MixinFilterItemTooltip {
                     }
                 }
             } catch (Exception e) {
+                CreateShuffleFilter.LOGGER.error("Failed to read RespectNBT from Shuffle Filter", e);
             }
 
             Text modeComponent = Text.literal("Current Mode: ").formatted(Formatting.GOLD)
