@@ -1,6 +1,6 @@
-package net.chris.create-shuffle-filter.mixin;
+package net.chris.createshufflefilter.mixin;
 
-import net.chris.create-shuffle-filter.CreateShuffleFilter;
+import net.chris.createshufflefilter.CreateShuffleFilter;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
 import com.simibubi.create.content.kinetics.deployer.DeployerFakePlayer;
 import com.simibubi.create.content.kinetics.deployer.DeployerMovementBehaviour;

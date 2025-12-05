@@ -1,7 +1,7 @@
-package net.chris.create-shuffle-filter.mixin;
+package net.chris.createshufflefilter.mixin;
 
 import com.simibubi.create.content.logistics.filter.FilterItemStack;
-import net.chris.create-shuffle-filter.CreateShuffleFilter;
+import net.chris.createshufflefilter.CreateShuffleFilter;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

@@ -1,7 +1,7 @@
-package net.chris.create-shuffle-filter.mixin;
+package net.chris.createshufflefilter.mixin;
 
 import com.simibubi.create.content.logistics.filter.FilterItem;
-import net.chris.create-shuffle-filter.CreateShuffleFilter;
+import net.chris.createshufflefilter.CreateShuffleFilter;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;

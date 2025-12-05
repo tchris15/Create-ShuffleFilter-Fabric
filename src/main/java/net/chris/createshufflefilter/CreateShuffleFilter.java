@@ -1,4 +1,4 @@
-package net.chris.create-shuffle-filter;
+package net.chris.createshufflefilter;
 
 import com.simibubi.create.AllCreativeModeTabs;
 import com.simibubi.create.content.logistics.filter.FilterItem;

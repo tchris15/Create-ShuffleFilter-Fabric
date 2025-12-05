@@ -13,11 +13,11 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"net.chris.create-shuffle-filter.CreateShuffleFilter"
+			"net.chris.createshufflefilter.CreateShuffleFilter"
 		]
 	},
 	"mixins": [
-		"creates-huffle-filter.mixins.json"
+		"create-shuffle-filter.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.18.1",

@@ -1,6 +1,6 @@
-package net.chris.create-shuffle-filter.mixin;
+package net.chris.createshufflefilter.mixin;
 
-import net.chris.create-shuffle-filter.CreateShuffleFilter;
+import net.chris.createshufflefilter.CreateShuffleFilter;
 import com.simibubi.create.AllKeys;
 import com.simibubi.create.content.logistics.filter.FilterItem;
 import net.minecraft.client.item.TooltipContext;
@@ -22,8 +22,8 @@ public class MixinFilterItemTooltip {
                                          List<Text> tooltip, TooltipContext context, CallbackInfo ci) {
         // Prüfen ob es unser Shuffle Filter ist
         if (stack.getItem() == CreateShuffleFilter.SHUFFLE_FILTER) {
-            tooltip.add(Text.literal("Randomizes item selection from filtered matches for deployers on contraptions")
-                    .formatted(Formatting.GRAY));
+            tooltip.add(Text.literal("Randomizes item selection from filtered").formatted(Formatting.GRAY));
+            tooltip.add(Text.literal("matches for deployers on contraptions").formatted(Formatting.GRAY));
 
             // Aktuellen Mode bestimmen
             boolean useWeightedMode = false;  // Default: Equal Mode
@@ -50,26 +50,24 @@ public class MixinFilterItemTooltip {
 
             if (AllKeys.shiftDown()) {
                 // Detaillierter Tooltip mit Shift
-                tooltip.add(Text.literal("Behaviour when in deployer on contraption").formatted(Formatting.GOLD));
-                tooltip.add(Text.literal("• Selects items randomly from those that pass the filter.").formatted(Formatting.GRAY));
-                tooltip.add(Text.literal("• Randomness is controlled via 2 modes").formatted(Formatting.GRAY));
+                tooltip.add(Text.literal("Behaviour in deployer").formatted(Formatting.GOLD));
+                tooltip.add(Text.literal("• Randomly picks items that pass the filter").formatted(Formatting.GRAY));
+                tooltip.add(Text.literal("• Two modes control randomness").formatted(Formatting.GRAY));
                 tooltip.add(Text.empty());
 
                 tooltip.add(Text.literal("Behaviour in all other cases").formatted(Formatting.GOLD));
-                tooltip.add(Text.literal("• Behaves like a normal List Filter").formatted(Formatting.GRAY));
+                tooltip.add(Text.literal("• Acts like a normal List Filter").formatted(Formatting.GRAY));
                 tooltip.add(Text.literal("• Weighted Mode = use NBT Data").formatted(Formatting.GRAY));
                 tooltip.add(Text.literal("• Equal Mode = ignore NBT Data").formatted(Formatting.GRAY));
                 tooltip.add(Text.empty());
 
                 // Mode-Erklärungen
                 tooltip.add(Text.literal("Equal Mode").formatted(Formatting.BLUE));
-                tooltip.add(Text.literal("• All matching items have equal selection chance").formatted(Formatting.GRAY));
-                tooltip.add(Text.literal("• Ignores stack quantities for selection").formatted(Formatting.GRAY));
+                tooltip.add(Text.literal("• All matches have equal chance").formatted(Formatting.GRAY));
                 tooltip.add(Text.empty());
 
                 tooltip.add(Text.literal("Weighted Mode").formatted(Formatting.GREEN));
-                tooltip.add(Text.literal("• Items with more stacks are more likely to be selected").formatted(Formatting.GRAY));
-                tooltip.add(Text.literal("• Selection probability based on stack count").formatted(Formatting.GRAY));
+                tooltip.add(Text.literal("• More stacks = higher chance").formatted(Formatting.GRAY));
                 tooltip.add(Text.empty());
 
                 tooltip.add(Text.literal("Use the filter GUI toggle to switch between modes").formatted(Formatting.DARK_GRAY));
@@ -77,7 +75,9 @@ public class MixinFilterItemTooltip {
             } else {
                 // Kurzer Hinweis ohne Shift
                 tooltip.add(Text.literal("Hold ").formatted(Formatting.DARK_GRAY)
-                        .append(Text.literal("SHIFT").formatted(Formatting.WHITE))
+                        .append(Text.literal("[").formatted(Formatting.DARK_GRAY))
+                        .append(Text.literal("Shift").formatted(Formatting.GRAY))
+                        .append(Text.literal("]").formatted(Formatting.DARK_GRAY))
                         .append(Text.literal(" for details").formatted(Formatting.DARK_GRAY)));
             }
         }

@@ -1,0 +1,28 @@
+{
+  "item.create-shuffle-filter.shuffle_filter": "Shuffle Filter",
+
+  "_comment": "Tooltip entries for shuffle filter - for future translation support",
+  "item.create-shuffle-filter.shuffle_filter.tooltip.summary": "Randomizes item selection from filtered matches for deployers on contraptions",
+
+  "item.create-shuffle-filter.shuffle_filter.tooltip.behaviour_deployer": "Behaviour in Deployer",
+  "item.create-shuffle-filter.shuffle_filter.tooltip.behaviour_deployer.description.1": "• Randomly picks items that pass the filter",
+  "item.create-shuffle-filter.shuffle_filter.tooltip.behaviour_deployer.description.2": "• Two modes control randomness",
+
+  "item.create-shuffle-filter.shuffle_filter.tooltip.behaviour_other": "Behaviour in all other cases",
+  "item.create-shuffle-filter.shuffle_filter.tooltip.behaviour_other.description.1": "• Acts like a normal List Filter",
+  "item.create-shuffle-filter.shuffle_filter.tooltip.behaviour_other.description.2": "• Weighted Mode = use NBT Data",
+  "item.create-shuffle-filter.shuffle_filter.tooltip.behaviour_other.description.3": "• Equal Mode = ignore NBT Data",
+
+  "item.create-shuffle-filter.shuffle_filter.tooltip.equal_mode": "Equal Mode",
+  "item.create-shuffle-filter.shuffle_filter.tooltip.equal_mode.1": "• All matches have equal chance",
+
+  "item.create-shuffle-filter.shuffle_filter.tooltip.weighted_mode": "Weighted Mode",
+  "item.create-shuffle-filter.shuffle_filter.tooltip.weighted_mode.1": "• More stacks = higher chance",
+
+  "item.create-shuffle-filter.shuffle_filter.tooltip.controls": "Use the filter GUI toggle to switch between modes",
+
+  "_comment_summary": "Summary entries for shuffle filter mode display",
+  "item.create-shuffle-filter.shuffle_filter.summary.mode": "Current Mode: ",
+  "item.create-shuffle-filter.shuffle_filter.summary.mode.equal": "Equal",
+  "item.create-shuffle-filter.shuffle_filter.summary.mode.weighted": "Weighted"
+}
