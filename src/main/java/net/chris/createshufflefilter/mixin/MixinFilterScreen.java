@@ -13,7 +13,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = FilterScreen.class, remap = false)
 public class MixinFilterScreen {
 
-    // Shadow die privaten Text-Felder
     @Shadow private Text respectDataN;
     @Shadow private Text ignoreDataN;
     @Shadow private Text respectDataDESC;
@@ -32,7 +31,6 @@ public class MixinFilterScreen {
             }
 
             if (isShuffleFilter) {
-                // Tooltips für Shuffle Mode überschreiben
                 respectDataN = Text.literal("Weighted Mode");
                 ignoreDataN = Text.literal("Equal Mode");
 
@@ -40,7 +38,6 @@ public class MixinFilterScreen {
                 ignoreDataDESC = Text.literal("Deployer in contraptions: Randomness ignores item quantity. All other: NBT Data is ignored");
             }
         } catch (Exception e) {
-            // Fehler ignorieren - Standard-Verhalten
         }
     }
 }

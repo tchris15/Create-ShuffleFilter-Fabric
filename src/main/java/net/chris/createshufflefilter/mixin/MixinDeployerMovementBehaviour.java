@@ -34,17 +34,15 @@ public class MixinDeployerMovementBehaviour {
 
     @Inject(method = "tryGrabbingItem", at = @At("HEAD"), cancellable = true, remap = false)
     private void onTryGrabbingItem(MovementContext context, CallbackInfo ci) {
-        // Nur Server-Side
         World world = context.world;
         if (world.isClient) return;
 
         FilterItemStack filter = context.getFilterFromBE();
 
-        // Prüfen ob es ein Shuffle Filter ist
         boolean isShuffleFilter = filter != null && !filter.item().isEmpty() &&
                 filter.item().getItem() == CreateShuffleFilter.SHUFFLE_FILTER;
 
-        if (!isShuffleFilter) return; // Normales Verhalten für andere Filter
+        if (!isShuffleFilter) return;
 
         DeployerFakePlayer player = getPlayer(context);
         if (player == null || !player.getMainHandStack().isEmpty()) return;
@@ -52,45 +50,38 @@ public class MixinDeployerMovementBehaviour {
         Storage<ItemVariant> storage = context.contraption.getSharedInventory();
         if (storage == null) return;
 
-        // Sammle alle einzigartigen Items, die durch den Filter passen
         List<ItemVariant> candidates = new ArrayList<>();
         Map<ItemVariant, Long> candidateAmounts = new HashMap<>();
 
-        // Über alle StorageViews iterieren
         for (StorageView<ItemVariant> view : storage.nonEmptyViews()) {
             ItemVariant variant = view.getResource();
             ItemStack stack = variant.toStack((int) view.getAmount());
 
             if (stack.isEmpty() || !filter.test(world, stack)) continue;
 
-            // Prüfen ob wir diesen Variant schon haben
             if (!candidates.contains(variant)) {
                 candidates.add(variant);
                 candidateAmounts.put(variant, view.getAmount());
             } else {
-                // Wenn schon vorhanden, Amount addieren (für Weighted Mode)
                 candidateAmounts.put(variant, candidateAmounts.get(variant) + view.getAmount());
             }
         }
 
-        if (candidates.isEmpty()) return; // Keine passenden Items
+        if (candidates.isEmpty()) return;
 
-        // Aktuellen Mode bestimmen (UMGEKEHRTE LOGIK!)
-        boolean useWeightedMode = false;  // Default: Equal Mode
+        boolean useWeightedMode = false;
 
         try {
             ItemStack filterItem = filter.item();
             if (filterItem.hasNbt()) {
                 var nbt = filterItem.getNbt();
                 if (nbt != null && nbt.contains("RespectNBT")) {
-                    useWeightedMode = nbt.getBoolean("RespectNBT"); // true = weighted
+                    useWeightedMode = nbt.getBoolean("RespectNBT");
                 }
             }
         } catch (Exception e) {
-            // Fehler ignorieren, Equal Mode nutzen
         }
 
-        // Item auswählen
         ItemVariant chosen;
         if (candidates.size() == 1) {
             chosen = candidates.get(0);
@@ -98,12 +89,10 @@ public class MixinDeployerMovementBehaviour {
             Random random = world.getRandom();
 
             if (useWeightedMode) {
-                // Weighted Mode: Basierend auf Menge gewichten
                 List<ItemVariant> weightedList = new ArrayList<>();
 
                 for (ItemVariant candidate : candidates) {
                     long amount = candidateAmounts.get(candidate);
-                    // Jede Einheit erhöht die Chance
                     for (int i = 0; i < amount; i++) {
                         weightedList.add(candidate);
                     }
@@ -113,13 +102,11 @@ public class MixinDeployerMovementBehaviour {
                 chosen = weightedList.get(randomIndex);
 
             } else {
-                // Equal Mode: Einfache Zufallsauswahl
                 int randomIndex = random.nextInt(candidates.size());
                 chosen = candidates.get(randomIndex);
             }
         }
 
-        // Item aus Storage extrahieren (mit Transaction)
         try (Transaction transaction = Transaction.openOuter()) {
             long extracted = storage.extract(chosen, 1, transaction);
 
@@ -128,7 +115,6 @@ public class MixinDeployerMovementBehaviour {
                 player.setStackInHand(Hand.MAIN_HAND, extractedStack);
                 transaction.commit();
 
-                // Original-Methode abbrechen
                 ci.cancel();
             }
         }

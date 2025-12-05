@@ -20,28 +20,22 @@ public class MixinFilterItemTooltip {
     @Inject(method = "appendTooltip", at = @At("HEAD"), remap = false)
     private void addShuffleFilterTooltip(ItemStack stack, net.minecraft.world.World world,
                                          List<Text> tooltip, TooltipContext context, CallbackInfo ci) {
-        // Prüfen ob es unser Shuffle Filter ist
         if (stack.getItem() == CreateShuffleFilter.SHUFFLE_FILTER) {
             tooltip.add(Text.literal("Randomizes item selection from filtered").formatted(Formatting.GRAY));
             tooltip.add(Text.literal("matches for deployers on contraptions").formatted(Formatting.GRAY));
 
-            // Aktuellen Mode bestimmen
-            boolean useWeightedMode = false;  // Default: Equal Mode
+            boolean useWeightedMode = false;
 
             try {
                 if (stack.hasNbt()) {
                     var nbt = stack.getNbt();
-                    // In 1.20.1 ist es NBT, nicht Components
                     if (nbt != null && nbt.contains("RespectNBT")) {
-                        // UMGEKEHRTE LOGIK wie besprochen
-                        useWeightedMode = nbt.getBoolean("RespectNBT"); // true = weighted
+                        useWeightedMode = nbt.getBoolean("RespectNBT");
                     }
                 }
             } catch (Exception e) {
-                // Fehler ignorieren
             }
 
-            // Aktuellen Mode anzeigen
             Text modeComponent = Text.literal("Current Mode: ").formatted(Formatting.GOLD)
                     .append(useWeightedMode
                             ? Text.literal("Weighted").formatted(Formatting.GREEN)
@@ -49,7 +43,6 @@ public class MixinFilterItemTooltip {
             tooltip.add(modeComponent);
 
             if (AllKeys.shiftDown()) {
-                // Detaillierter Tooltip mit Shift
                 tooltip.add(Text.literal("Behaviour in deployer").formatted(Formatting.GOLD));
                 tooltip.add(Text.literal("• Randomly picks items that pass the filter").formatted(Formatting.GRAY));
                 tooltip.add(Text.literal("• Two modes control randomness").formatted(Formatting.GRAY));
@@ -61,7 +54,6 @@ public class MixinFilterItemTooltip {
                 tooltip.add(Text.literal("• Equal Mode = ignore NBT Data").formatted(Formatting.GRAY));
                 tooltip.add(Text.empty());
 
-                // Mode-Erklärungen
                 tooltip.add(Text.literal("Equal Mode").formatted(Formatting.BLUE));
                 tooltip.add(Text.literal("• All matches have equal chance").formatted(Formatting.GRAY));
                 tooltip.add(Text.empty());
@@ -73,7 +65,6 @@ public class MixinFilterItemTooltip {
                 tooltip.add(Text.literal("Use the filter GUI toggle to switch between modes").formatted(Formatting.DARK_GRAY));
 
             } else {
-                // Kurzer Hinweis ohne Shift
                 tooltip.add(Text.literal("Hold ").formatted(Formatting.DARK_GRAY)
                         .append(Text.literal("[").formatted(Formatting.DARK_GRAY))
                         .append(Text.literal("Shift").formatted(Formatting.GRAY))

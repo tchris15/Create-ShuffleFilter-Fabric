@@ -15,11 +15,9 @@ public class MixinFilterItem {
 
     @Inject(method = "getFilterItems", at = @At("HEAD"), cancellable = true, remap = false)
     private static void allowShuffleFilter(ItemStack stack, CallbackInfoReturnable<ItemStackHandler> cir) {
-        // Prüfen ob es unser Shuffle Filter ist
         if (stack.getItem() == CreateShuffleFilter.SHUFFLE_FILTER) {
             ItemStackHandler newInv = new ItemStackHandler(18);
 
-            // NBT laden falls vorhanden
             if (stack.hasNbt()) {
                 NbtCompound invNBT = stack.getOrCreateSubNbt("Items");
                 if (!invNBT.isEmpty())

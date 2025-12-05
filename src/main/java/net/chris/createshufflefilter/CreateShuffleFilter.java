@@ -26,8 +26,6 @@ public class CreateShuffleFilter implements ModInitializer {
 	@Override
 	public void onInitialize() {
 
-		LOGGER.info("Hello Fabric world!");
-
         ItemGroupEvents.modifyEntriesEvent(AllCreativeModeTabs.BASE_CREATIVE_TAB.key()).register(content -> content.add(SHUFFLE_FILTER));
 	}
 }
