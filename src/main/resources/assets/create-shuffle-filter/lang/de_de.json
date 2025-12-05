@@ -2,9 +2,10 @@
   "item.create-shuffle-filter.shuffle_filter": "Zufallsfilter",
 
   "_comment": "Tooltip entries for shuffle filter - for future translation support",
-  "item.create-shuffle-filter.shuffle_filter.tooltip.summary": "Zufällige Auswahl gefilterter Items für Deployer auf Konstruktionen",
+  "item.create-shuffle-filter.shuffle_filter.tooltip.summary.1": "Zufällige Auswahl gefilterter Gegenstände",
+  "item.create-shuffle-filter.shuffle_filter.tooltip.summary.2": "für Einsatzgeräte auf Konstruktionen",
 
-  "item.create-shuffle-filter.shuffle_filter.tooltip.behaviour_deployer": "Verhalten bei Deployer",
+  "item.create-shuffle-filter.shuffle_filter.tooltip.behaviour_deployer": "Verhalten bei Einsatzgeräten",
   "item.create-shuffle-filter.shuffle_filter.tooltip.behaviour_deployer.description.1": "• Wählt zufällig Gegenstände aus, die den Filter bestehen",
   "item.create-shuffle-filter.shuffle_filter.tooltip.behaviour_deployer.description.2": "• Zwei Modi steuern die Zufälligkeit",
 
@@ -14,7 +15,7 @@
   "item.create-shuffle-filter.shuffle_filter.tooltip.behaviour_other.description.3": "• Ausgeglichener Modus = ignoriert NBT-Daten",
 
  "item.create-shuffle-filter.shuffle_filter.tooltip.equal_mode": "Gleich Modus",
-  "item.create-shuffle-filter.shuffle_filter.tooltip.equal_mode.1": "• Alle passenden Items haben dieselbe Chance",
+  "item.create-shuffle-filter.shuffle_filter.tooltip.equal_mode.1": "• Alle passenden Gegenstände haben dieselbe Chance",
 
   "item.create-shuffle-filter.shuffle_filter.tooltip.weighted_mode": "Gewichteter Modus",
   "item.create-shuffle-filter.shuffle_filter.tooltip.weighted_mode.1": "• Mehr Stapel = höhere Chance",

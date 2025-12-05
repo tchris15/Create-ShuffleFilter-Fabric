@@ -2,7 +2,8 @@
   "item.create-shuffle-filter.shuffle_filter": "Shuffle Filter",
 
   "_comment": "Tooltip entries for shuffle filter - for future translation support",
-  "item.create-shuffle-filter.shuffle_filter.tooltip.summary": "Randomizes item selection from filtered matches for deployers on contraptions",
+  "item.create-shuffle-filter.shuffle_filter.tooltip.summary.1": "Randomizes item selection from filtered",
+  "item.create-shuffle-filter.shuffle_filter.tooltip.summary.2": "matches for deployers on contraptions",
 
   "item.create-shuffle-filter.shuffle_filter.tooltip.behaviour_deployer": "Behaviour in Deployer",
   "item.create-shuffle-filter.shuffle_filter.tooltip.behaviour_deployer.description.1": "• Randomly picks items that pass the filter",

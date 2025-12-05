@@ -21,8 +21,8 @@ public class MixinFilterItemTooltip {
     private void addShuffleFilterTooltip(ItemStack stack, net.minecraft.world.World world,
                                          List<Text> tooltip, TooltipContext context, CallbackInfo ci) {
         if (stack.getItem() == CreateShuffleFilter.SHUFFLE_FILTER) {
-            tooltip.add(Text.literal("Randomizes item selection from filtered").formatted(Formatting.GRAY));
-            tooltip.add(Text.literal("matches for deployers on contraptions").formatted(Formatting.GRAY));
+            tooltip.add(Text.translatable("item.create-shuffle-filter.shuffle_filter.tooltip.summary.1"));
+            tooltip.add(Text.translatable("item.create-shuffle-filter.shuffle_filter.tooltip.summary.2"));
 
             boolean useWeightedMode = false;
 
@@ -37,33 +37,33 @@ public class MixinFilterItemTooltip {
                 CreateShuffleFilter.LOGGER.error("Failed to read RespectNBT from Shuffle Filter", e);
             }
 
-            Text modeComponent = Text.literal("Current Mode: ").formatted(Formatting.GOLD)
+            Text modeComponent = Text.translatable("item.create-shuffle-filter.shuffle_filter.summary.mode").formatted(Formatting.GOLD)
                     .append(useWeightedMode
-                            ? Text.literal("Weighted").formatted(Formatting.GREEN)
-                            : Text.literal("Equal").formatted(Formatting.BLUE));
+                            ? Text.translatable("item.create-shuffle-filter.shuffle_filter.summary.mode.weighted").formatted(Formatting.GREEN)
+                            : Text.translatable("item.create-shuffle-filter.shuffle_filter.summary.mode.equal").formatted(Formatting.BLUE));
             tooltip.add(modeComponent);
 
             if (AllKeys.shiftDown()) {
-                tooltip.add(Text.literal("Behaviour in deployer").formatted(Formatting.GOLD));
-                tooltip.add(Text.literal("• Randomly picks items that pass the filter").formatted(Formatting.GRAY));
-                tooltip.add(Text.literal("• Two modes control randomness").formatted(Formatting.GRAY));
+                tooltip.add(Text.translatable("item.create-shuffle-filter.shuffle_filter.tooltip.behaviour_deployer").formatted(Formatting.GOLD));
+                tooltip.add(Text.translatable("item.create-shuffle-filter.shuffle_filter.tooltip.behaviour_deployer.description.1").formatted(Formatting.GRAY));
+                tooltip.add(Text.translatable("item.create-shuffle-filter.shuffle_filter.tooltip.behaviour_deployer.description.2").formatted(Formatting.GRAY));
                 tooltip.add(Text.empty());
 
-                tooltip.add(Text.literal("Behaviour in all other cases").formatted(Formatting.GOLD));
-                tooltip.add(Text.literal("• Acts like a normal List Filter").formatted(Formatting.GRAY));
-                tooltip.add(Text.literal("• Weighted Mode = use NBT Data").formatted(Formatting.GRAY));
-                tooltip.add(Text.literal("• Equal Mode = ignore NBT Data").formatted(Formatting.GRAY));
+                tooltip.add(Text.translatable("item.create-shuffle-filter.shuffle_filter.tooltip.behaviour_other").formatted(Formatting.GOLD));
+                tooltip.add(Text.translatable("item.create-shuffle-filter.shuffle_filter.tooltip.behaviour_other.description.1").formatted(Formatting.GRAY));
+                tooltip.add(Text.translatable("item.create-shuffle-filter.shuffle_filter.tooltip.behaviour_other.description.2").formatted(Formatting.GRAY));
+                tooltip.add(Text.translatable("item.create-shuffle-filter.shuffle_filter.tooltip.behaviour_other.description.3").formatted(Formatting.GRAY));
                 tooltip.add(Text.empty());
 
-                tooltip.add(Text.literal("Equal Mode").formatted(Formatting.BLUE));
-                tooltip.add(Text.literal("• All matches have equal chance").formatted(Formatting.GRAY));
+                tooltip.add(Text.translatable("item.create-shuffle-filter.shuffle_filter.tooltip.equal_mode").formatted(Formatting.BLUE));
+                tooltip.add(Text.translatable("item.create-shuffle-filter.shuffle_filter.tooltip.equal_mode.1").formatted(Formatting.GRAY));
                 tooltip.add(Text.empty());
 
-                tooltip.add(Text.literal("Weighted Mode").formatted(Formatting.GREEN));
-                tooltip.add(Text.literal("• More stacks = higher chance").formatted(Formatting.GRAY));
+                tooltip.add(Text.translatable("item.create-shuffle-filter.shuffle_filter.tooltip.weighted_mode").formatted(Formatting.GREEN));
+                tooltip.add(Text.translatable("item.create-shuffle-filter.shuffle_filter.tooltip.weighted_mode.1").formatted(Formatting.GRAY));
                 tooltip.add(Text.empty());
 
-                tooltip.add(Text.literal("Use the filter GUI toggle to switch between modes").formatted(Formatting.DARK_GRAY));
+                tooltip.add(Text.translatable("item.create-shuffle-filter.shuffle_filter.tooltip.controls").formatted(Formatting.DARK_GRAY));
 
             } else {
                 tooltip.add(Text.literal("Hold ").formatted(Formatting.DARK_GRAY)
