@@ -66,11 +66,11 @@ public class MixinFilterItemTooltip {
                 tooltip.add(Text.translatable("item.create-shuffle-filter.shuffle_filter.tooltip.controls").formatted(Formatting.DARK_GRAY));
 
             } else {
-                tooltip.add(Text.literal("Hold ").formatted(Formatting.DARK_GRAY)
-                        .append(Text.literal("[").formatted(Formatting.DARK_GRAY))
-                        .append(Text.literal("Shift").formatted(Formatting.GRAY))
-                        .append(Text.literal("]").formatted(Formatting.DARK_GRAY))
-                        .append(Text.literal(" for details").formatted(Formatting.DARK_GRAY)));
+                tooltip.add(Text.translatable("item.create-shuffle-filter.shuffle_filter.summary.button.1").formatted(Formatting.DARK_GRAY)
+                        .append(Text.translatable("item.create-shuffle-filter.shuffle_filter.summary.button.2").formatted(Formatting.DARK_GRAY))
+                        .append(Text.translatable("item.create-shuffle-filter.shuffle_filter.summary.button.3").formatted(Formatting.GRAY))
+                        .append(Text.translatable("item.create-shuffle-filter.shuffle_filter.summary.button.4").formatted(Formatting.DARK_GRAY))
+                        .append(Text.translatable("item.create-shuffle-filter.shuffle_filter.summary.button.5").formatted(Formatting.DARK_GRAY)));
             }
         }
     }
